@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:thenotes/views/login_view.dart';
 import 'package:thenotes/views/register_view.dart';
+import 'dart:developer' as dev show log;
 
 
 class VerifyEmailView extends StatefulWidget {

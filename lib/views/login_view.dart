@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:thenotes/firebase_options.dart';
+import 'dart:developer' as dev show log;
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -31,7 +32,9 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login'),),
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
       body: Column(
         children: [
           TextField(
@@ -53,32 +56,35 @@ class _LoginViewState extends State<LoginView> {
             onPressed: () async {
               final email = _email.text;
               final pass = _password.text;
-              try{
-                final userCredential =
-                await FirebaseAuth.instance.signInWithEmailAndPassword(
+              try {
+                // final userCredential =
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(
                   email: email,
                   password: pass,
                 );
-              }
-              on FirebaseAuthException catch(e){
-                if(e.code == 'user-not-found') {
-                  print('user not found');
+                // ignore: use_build_context_synchronously
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/notes/',
+                  (route) => false,
+                );
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'user-not-found') {
+                  dev.log('user not found');
+                } else if (e.code == 'wrong-password') {
+                  dev.log('wrong password');
                 }
-                else if(e.code == 'wrong-password'){
-                  print('wrong password');
-                }
+              } catch (e) {
+                dev.log('some other error');
               }
-              catch(e){
-                print('some other error');
-              }
-              // print(userCredential);
+              // dev.log(userCredential);
             },
           ),
           // SizedBox(height: 20,),
           TextButton(
             child: const Text('Not Registered yet? Register here'),
             onPressed: () async {
-              Navigator.of(context).pushNamedAndRemoveUntil('/register/', (route) => false);
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/register/', (route) => false);
             },
           ),
         ],
