@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:thenotes/constants/routes.dart';
 import 'package:thenotes/firebase_options.dart';
 import 'dart:developer' as dev show log;
 
@@ -83,7 +84,7 @@ class _RegisterViewState extends State<RegisterView> {
           TextButton(
             child: const Text('Already Registered? Login here'),
             onPressed: () async {
-              Navigator.of(context).pushNamedAndRemoveUntil('/login/', (route) => false);
+              Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
             },
           ),
         ],
