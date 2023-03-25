@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
       routes: {
         loginRoute : (context) => const LoginView(),
         registerRoute : (context) => const RegisterView(),
-        notesRoute : (context) => const NotesView()
+        notesRoute : (context) => const NotesView(),
+        verifyEmailRoute : (context) => const VerifyEmailView()
       },
     );
   }
@@ -107,7 +108,7 @@ class _NotesViewState extends State<NotesView> {
       ),
       body: TextButton(
         onPressed: () {},
-        child: Center(child: Text('Log out')),
+        child: const Center(child: Text('Log out')),
       ),
     );
   }
